@@ -59,7 +59,7 @@ class App extends Component {
     const { accounts, web3 , contract } = this.state;
     const instance = new web3.eth.Contract(
       WeatherBet.abi,
-      await contract.methods.bets(0).call()
+      await contract.methods.bets(22).call()
     );
     await instance.methods.join(accounts[0]).send({ from: accounts[0] , value: this.state.web3.utils.toWei( "1", 'ether')});
     console.log(await instance.methods.getETHAmount().call());
