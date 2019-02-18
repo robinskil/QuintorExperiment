@@ -6266,12 +6266,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xfbEDe12AaF5D783c7Ab8a9B32f19f74C6c170Fc6",
-      "transactionHash": "0x66884868366987bb732e04a8672c7788ebda31bd8807a930d88c02c3b51a7eee"
+      "address": "0x96f6a741a2119B871700e935A5ad2Eb0F30AC333",
+      "transactionHash": "0xcc2ea7957bb4fcc2549a59c77a606689a5dd5c131cec69923fdc0d1346291441"
     }
   },
   "schemaVersion": "3.0.2",
-  "updatedAt": "2019-02-17T17:13:09.532Z",
+  "updatedAt": "2019-02-18T08:35:21.052Z",
   "devdoc": {
     "methods": {}
   },

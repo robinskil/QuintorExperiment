@@ -44,27 +44,17 @@ class CreateBetPage extends Component {
     setOwnedBets = async () => {
         const allBets = await getOwnedBets(this.state.factoryContract, this.state.accounts[0]);
         this.setState({ bets: allBets.reverse() });
+        console.log("Reload page")
     }
 
     createNewContract = async () => {
-        const address = await createContract(this.state.accounts[0], this.state.factoryContract, this.state.etherAmount)
-        console.log(address);
-        console.log(await this.state.factoryContract.methods.bets(0).call());
-        const currentContract = new this.state.web3.eth.Contract(
-            WeatherBet.abi,
-            await this.state.factoryContract.methods.bets(0).call()
-        );
-        console.log(await this.state.factoryContract.methods.bets(0).call());
-        this.setOwnedBets();
-
+        const address = await createContract(this.state.accounts[0], this.state.factoryContract, this.state.etherAmount).then(()=>{
+            this.setOwnedBets();
+        })
     }
 
     onChangeEtherAmount(event) {
         this.setState({ etherAmount: event.target.value });
-    }
-
-    async getValues(bet) {
-        return
     }
 
     render() {
@@ -97,29 +87,29 @@ class BetCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            betAmount: 'Loading',
+            betAmount: 'Loading...',
             participators: 'None',
             contract : null
         }
         this.joinBet = this.joinBet.bind(this);
-        this.fillData = this.fillData.bind(this);
+        this.reloadData = this.reloadData.bind(this);
+        console.log("created card" + this.props.bet);
     }
 
     componentDidMount = async () => {
-
-        this.setState({contract: await instantiateWeatherContract(this.props.web3, WeatherBet, this.props.bet)});
-        this.fillData();
+        this.reloadData();
     }
 
-    fillData = async ()=>{
-        this.setState({ betAmount: await getBetAmount(this.state.contract) , 
-            participators: await getParticipators(this.state.contract),
+    reloadData = async ()=>{
+        const instance = await instantiateWeatherContract(this.props.web3, WeatherBet, this.props.bet);
+        this.setState({contract: instance ,betAmount: await getBetAmount(instance) , 
+            participators: await getParticipators(instance),
           });
     }
 
     joinBet = async() =>{
         await joinBet(this.state.contract , this.props.account , this.state.betAmount , this.props.web3);
-        this.fillData();
+        this.reloadData();
     }
 
     render() {
@@ -155,7 +145,6 @@ class BetCard extends Component {
                             <a href="#" className="card-link">Link to the bet</a>
                             <a href="#" className="card-link">Another link</a>
                         </div>
-
                     </div>
                 </div>
             </div>
