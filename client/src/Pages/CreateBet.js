@@ -4,6 +4,7 @@ import WeatherBet from "../contracts/WeatherBet.json";
 import getWeb3 from "../utils/getWeb3";
 import { createContract, getOwnedBets } from "../helpers/Contracts";
 import { getBetAmount, getParticipators, instantiateWeatherContract, joinBet } from "../helpers/BetContract";
+import { MenuBar } from './Components/MenuBar';
 
 
 class CreateBetPage extends Component {
@@ -20,7 +21,7 @@ class CreateBetPage extends Component {
 
             // Use web3 to get the user's accounts.
             const accounts = await web3.eth.getAccounts();
-
+            console.log(accounts);
             // Get the contract instance.
             const networkId = await web3.eth.net.getId();
             const deployedNetwork = WeatherFactory.networks[networkId];
@@ -61,6 +62,16 @@ class CreateBetPage extends Component {
     render() {
         return (
             <div id="PageHolder" className="container">
+                <MenuBar/>
+                <div class="jumbotron" style={{padding:"2rem"}}>
+                    <h1 class="display-3">Welcome to Ethereum Betting!</h1>
+                    <p class="lead">Fully anonymous betting where you control your own bets.</p>
+                    <hr class="my-4"/>
+                    <div className="row justify-content-center">
+                        <img width="50%" src="https://en.bitcoinwiki.org/upload/en/images/7/7a/Ethereum11.png"/>
+                    </div>
+                    <a style={{marginTop:"30px"}} class="btn btn-primary" href="#" role="button">Learn more</a>
+                </div>
                 {this.state.accounts != null ? <h2 style={{ textAlign: "center" }}> Welcome {this.state.accounts[0]}</h2> : null}
                 <div className="form-group row justify-content-center">
                     <div>
