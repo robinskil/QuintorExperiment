@@ -3,7 +3,7 @@ import WeatherFactory from "../contracts/WeatherFactory.json";
 import WeatherBet from "../contracts/WeatherBet.json";
 import getWeb3 from "../utils/getWeb3";
 import { createContract, getOwnedBets } from "../helpers/Contracts";
-import { getBetAmount, getParticipators, instantiateWeatherContract , joinBet } from "../helpers/BetContract";
+import { getBetAmount, getParticipators, instantiateWeatherContract, joinBet } from "../helpers/BetContract";
 
 
 class CreateBetPage extends Component {
@@ -42,15 +42,16 @@ class CreateBetPage extends Component {
     }
 
     setOwnedBets = async () => {
+        //this.setState({bets:null});
         const allBets = await getOwnedBets(this.state.factoryContract, this.state.accounts[0]);
-        this.setState({ bets: allBets.reverse() });
+        console.log(allBets);
+        this.setState({ bets: allBets });
         console.log("Reload page")
     }
 
     createNewContract = async () => {
-        const address = await createContract(this.state.accounts[0], this.state.factoryContract, this.state.etherAmount).then(()=>{
-            this.setOwnedBets();
-        })
+        const address = await createContract(this.state.accounts[0], this.state.factoryContract, this.state.etherAmount);
+        await this.setOwnedBets();
     }
 
     onChangeEtherAmount(event) {
@@ -69,47 +70,48 @@ class CreateBetPage extends Component {
                         <input className="form-control" type="number" value={this.state.etherAmount} onChange={this.onChangeEtherAmount} />
                     </div>
                 </div>
-                <h3 style={{textAlign:"center"}}>Contracts Created By You:</h3>
-                <div className="row justify-content-center">
-                    {this.state.bets != null ? this.state.bets.map(bet => {
-                        return (
-                            <BetCard account={this.state.accounts[0]} web3={this.state.web3} bet={bet} />
-                        )
-                    }) : null}
-
-                </div>
+                <h3 style={{ textAlign: "center" }}>Contracts Created By You:</h3>
+                <BetList bets={this.state.bets} web3={this.state.web3} />
             </div>
         )
     }
 }
 
-class BetCard extends Component {
+class BetList extends Component {
+    render() {
+        return (
+            <div className="row justify-content-center">
+                {this.props.bets != null ? this.props.bets.map(bet => {
+                    return (<BetInfo bet={bet} web3={this.props.web3} />)
+                }) : null}
+            </div>
+        )
+    }
+}
+
+class BetInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            betAmount: 'Loading...',
-            participators: 'None',
-            contract : null
+            betAmount: null,
+            participators: null,
+            contract: null
         }
-        this.joinBet = this.joinBet.bind(this);
-        this.reloadData = this.reloadData.bind(this);
-        console.log("created card" + this.props.bet);
+        this.loadData = this.loadData.bind(this);
+        this.loadData();
     }
 
-    componentDidMount = async () => {
-        this.reloadData();
-    }
-
-    reloadData = async ()=>{
+    async loadData() {
         const instance = await instantiateWeatherContract(this.props.web3, WeatherBet, this.props.bet);
-        this.setState({contract: instance ,betAmount: await getBetAmount(instance) , 
-            participators: await getParticipators(instance),
-          });
+        const betAmount = await getBetAmount(instance);
+        const participators = await getParticipators(instance);
+        this.setState({ contract: instance, betAmount: betAmount, participators: participators });
     }
 
-    joinBet = async() =>{
-        await joinBet(this.state.contract , this.props.account , this.state.betAmount , this.props.web3);
-        this.reloadData();
+
+    joinBet = async () => {
+        await joinBet(this.state.contract, this.props.account, this.state.betAmount, this.props.web3);
+        await this.loadData();
     }
 
     render() {
@@ -118,7 +120,7 @@ class BetCard extends Component {
                 <div className="card bg-light mb-3">
                     <div className="card-body">
                         <nav>
-                            <div className="nav nav-tabs" id="nav-tab" role="tablist" style={{marginBottom:"15px"}}>
+                            <div className="nav nav-tabs" id="nav-tab" role="tablist" style={{ marginBottom: "15px" }}>
                                 <a className="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href={"#nav-main" + this.props.bet} role="tab" aria-controls="nav-home" aria-selected="true">Weather Bet</a>
                                 <a className="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href={"#nav-participants" + this.props.bet} role="tab" aria-controls="nav-profile" aria-selected="false">Participants</a>
                                 <a className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href={"#nav-actions" + this.props.bet} role="tab" aria-controls="nav-contact" aria-selected="false">Actions</a>
@@ -127,12 +129,14 @@ class BetCard extends Component {
 
                         <div className="tab-content" id="nav-tabContent">
                             <div className="tab-pane fade show active" id={"nav-main" + this.props.bet} role="tabpanel" aria-labelledby="nav-home-tab">
-                                <h6 className="card-subtitle mb-2 text-muted" style={{marginTop:"0px"}}>Contract Address: {this.props.bet}</h6>
-                                <p className="card-text">Amount to join bet: {this.state.betAmount} <img style={{ position: "relative", bottom: "2px", height: "15px", width: "15px" }} src="https://cdn4.iconfinder.com/data/icons/cryptocoins/227/ETH-512.png" /></p>
+                                <h6 className="card-subtitle mb-2 text-muted" style={{ marginTop: "0px" }}>Contract Address: {this.props.bet}</h6>
+                                {this.state.betAmount != null ?
+                                    <p className="card-text">Amount to join bet: {this.state.betAmount} <img style={{ position: "relative", bottom: "2px", height: "15px", width: "15px" }} src="https://cdn4.iconfinder.com/data/icons/cryptocoins/227/ETH-512.png" /></p>
+                                 : null}
                             </div>
                             <div className="tab-pane fade" id={"nav-participants" + this.props.bet} role="tabpanel" aria-labelledby="nav-profile-tab">
-                                {this.state.participators !== 'None' && this.state.participators.length > 0 ? this.state.participators.map( participant => {
-                                    return(
+                                {this.state.participators != null && this.state.participators.length > 0 ? this.state.participators.map(participant => {
+                                    return (
                                         <p>{participant}</p>
                                     )
                                 }) : <p className="card-text">No participants</p>}
@@ -141,7 +145,7 @@ class BetCard extends Component {
                                 <button className="btn btn-primary" onClick={this.joinBet}>Join bet</button>
                             </div>
                         </div>
-                        <div style={{marginTop:"15px"}}>
+                        <div style={{ marginTop: "15px" }}>
                             <a href="#" className="card-link">Link to the bet</a>
                             <a href="#" className="card-link">Another link</a>
                         </div>

@@ -4,6 +4,7 @@ interface IWeatherBet {
     function getValue() external;
 }
 
+//Our factory contract , this is deployed by us as developers.
 contract WeatherFactory {
     address[] public bets;
 
@@ -23,8 +24,8 @@ contract WeatherFactory {
             }
         }
         address[] memory ownedBets = new address[](currentIndice);
-        for(currentIndice ; currentIndice > 0; currentIndice--){
-            ownedBets[currentIndice-1] = allBets[currentIndice-1]; 
+        for(uint256 index = 0 ; index < currentIndice; index++){
+            ownedBets[index] = allBets[index]; 
         }
         return ownedBets;
     }
