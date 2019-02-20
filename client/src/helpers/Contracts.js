@@ -5,8 +5,8 @@
  * @param {*} accounts 
  * @param {*} factoryContract 
  */
-export async function createContract(account , factoryContract , betAmount) {
-    return await factoryContract.methods.createWeatherBet(betAmount).send({ from: account });
+export async function createContract(account , factoryContract , betAmount , maxParticipators , open , friendsOnly) {
+    return await factoryContract.methods.createWeatherBet(betAmount, maxParticipators , open , friendsOnly).send({ from: account });
 }
 
 /**

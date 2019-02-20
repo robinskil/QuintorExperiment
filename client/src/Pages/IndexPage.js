@@ -11,6 +11,7 @@ import { createContract, getOwnedBets } from "../helpers/Contracts";
 import { getBetAmount, getParticipators, instantiateWeatherContract, joinBet } from "../helpers/BetContract";
 import { MenuBar } from './Components/MenuBar';
 import BetPage from './BetPage';
+import ViewOwnBets from './ViewOwnBetsPage';
 
 
 class Wrapper extends Component {
@@ -51,6 +52,7 @@ class Wrapper extends Component {
                     <Route path="/about" component={null} />
                     <Route path="/topics" component={null} />
                     <Route path="/CreateBet" component={()=>{return(<BetPage web3={this.state.web3}/>)}}/>
+                    <Route path="/ViewBets" component={()=>{return(<ViewOwnBets web3={this.state.web3}/>)}}/>
                 </div>
             </Router>
         )
