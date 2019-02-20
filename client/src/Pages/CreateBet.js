@@ -16,12 +16,13 @@ class CreateBetPage extends Component {
 
     componentDidMount = async () => {
         try {
+            console.log("trying");
             // Get network provider and web3 instance.
             const web3 = await getWeb3();
 
             // Use web3 to get the user's accounts.
             const accounts = await web3.eth.getAccounts();
-            console.log(accounts);
+            console.log("Logging accounts in!");
             // Get the contract instance.
             const networkId = await web3.eth.net.getId();
             const deployedNetwork = WeatherFactory.networks[networkId];
@@ -61,18 +62,8 @@ class CreateBetPage extends Component {
 
     render() {
         return (
-            <div id="PageHolder" className="container">
-                <MenuBar/>
-                <div class="jumbotron" style={{padding:"2rem"}}>
-                    <h1 class="display-3">Welcome to Ethereum Betting!</h1>
-                    <p class="lead">Fully anonymous betting where you control your own bets.</p>
-                    <hr class="my-4"/>
-                    <div className="row justify-content-center">
-                        <img width="50%" src="https://en.bitcoinwiki.org/upload/en/images/7/7a/Ethereum11.png"/>
-                    </div>
-                    <a style={{marginTop:"30px"}} class="btn btn-primary" href="#" role="button">Learn more</a>
-                </div>
-                {this.state.accounts != null ? <h2 style={{ textAlign: "center" }}> Welcome {this.state.accounts[0]}</h2> : null}
+            <div id="PageHolder">
+                {this.state.accounts != null && this.state.accounts[0] != null? <h2 style={{ textAlign: "center" }}> Welcome {this.state.accounts[0]}</h2> : <h1>No account</h1>}
                 <div className="form-group row justify-content-center">
                     <div>
                         <button onClick={this.createNewContract} className="btn btn-primary">Create Contract</button>
