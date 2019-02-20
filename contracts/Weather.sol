@@ -44,14 +44,34 @@ contract Bet {
     }
     BetStruct bet;
 
+    modifier onlyOwner {
+        require(
+            msg.sender == bet.owner,
+            "Only owner can call this function."
+        );
+        _;
+    }
+
+    modifier openToJoin {
+        require(bet.open , "Bet is not open at the moment.");
+        require(userAlreadyJoined(msg.sender) , "You already joined this bet.");
+        _;
+    }
+    
     //todo check if user is already in list....
-    function join() payable public {
-        require(bet.open == true , "Bet is not open at the moment.");
+    function join() payable public openToJoin {
         require(msg.value == bet.betAmount * 1 ether  , "Requires Ether.");
         bet.participators.push(msg.sender);
     }
 
-    function isOpen() public view returns(bool){
+    function userAlreadyJoined(address userAddress) private view returns (bool){
+        for (uint index = 0 ; index < bet.participators.length; index++) {
+            if(bet.participators[index] == userAddress) return true;
+        }
+        return false;
+    }
+
+    function isOpen() public onlyOwner view returns(bool){
         return bet.open;
     }
 

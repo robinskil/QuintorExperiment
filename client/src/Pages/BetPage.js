@@ -65,11 +65,7 @@ class BetPage extends Component {
                 <h3 style={{ textAlign: "center" }}>
                     Welcome {this.state.accounts[0]}
                 </h3>
-                <div className="row">
-                    <form>
-                        <input type="number" placeholder="Amount of Ether" id="etherAmount"/>
-                    </form>
-                </div>
+                <CreateContractForm web3={this.props.web3} account={this.props.accounts[0]} factoryContract={this.state.factoryContract} />
             </div>
         )
     }
@@ -85,6 +81,14 @@ class CreateContractForm extends Component{
             openOnInit : true,
             closeOnTime : undefined
         }
+    }
+
+    render(){
+        return(
+            <div>
+
+            </div>
+        )
     }
 }
 
