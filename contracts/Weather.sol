@@ -53,14 +53,14 @@ contract Bet {
     }
 
     modifier openToJoin {
-        require(bet.open , "Bet is not open at the moment.");
-        require(userAlreadyJoined(msg.sender) , "You already joined this bet.");
+        require(bet.open == true , "Bet is not open at the moment.");
         _;
     }
     
     //todo check if user is already in list....
-    function join() payable public openToJoin {
+    function join() payable public {
         require(msg.value == bet.betAmount * 1 ether  , "Requires Ether.");
+        require(bet.open == true);
         bet.participators.push(msg.sender);
     }
 

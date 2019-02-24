@@ -79,8 +79,8 @@ class CreateContractForm extends Component {
         this.state = {
             etherAmount: null,
             amountOfParticipators: null,
-            friendsOnly: false,
-            openOnInit: true,
+            friendsOnly: "false",
+            openOnInit: "true",
             closeOnTime: undefined,
         }
         this.buildContract = this.buildContract.bind(this);
@@ -153,7 +153,7 @@ class CreateContractForm extends Component {
     buildContract = async (event) => {
         event.preventDefault();
         console.log(this.state);
-        const instance = await createContract(this.props.account, this.props.factoryContract, this.state.etherAmount, this.state.amountOfParticipators, this.state.openOnInit, this.state.friendsOnly);
+        const instance = await createContract(this.props.account, this.props.factoryContract, this.state.etherAmount, this.state.amountOfParticipators, (this.state.openOnInit === "true"), (this.state.friendsOnly === "true"));
         this.setState({ contractAddress: instance });
         alert("succesfully created contract.");
         this.setState({
