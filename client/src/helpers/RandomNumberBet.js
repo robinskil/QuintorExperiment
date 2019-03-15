@@ -1,0 +1,1 @@
+/*Allows for interaction with the Specialized Random number bet*/

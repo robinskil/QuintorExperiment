@@ -1,0 +1,7 @@
+
+//To deploy the contracts and compile them:
+truffle migrate -network ganache
+
+//To allow oracles to call outwards to third parties
+ethereum-bridge --instance oracle_instance_20190313T174016.json
+ethereum-bridge --instance oracle_instance_20190313T174016.json

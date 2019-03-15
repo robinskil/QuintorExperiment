@@ -4,10 +4,10 @@ import {
     Route,
     Link
 } from 'react-router-dom'
-import WeatherFactory from "../contracts/WeatherFactory.json";
+//import WeatherFactory from "../contracts/WeatherFactory.json";
 import WeatherBet from "../contracts/WeatherBet.json";
 import getWeb3 from "../utils/getWeb3";
-import { createContract, getOwnedBets } from "../helpers/Contracts";
+import { createContract, getOwnedBets } from "../helpers/BettingFactory";
 import { getBetAmount, getParticipators, instantiateWeatherContract, joinBet } from "../helpers/BetContract";
 import { MenuBar } from './Components/MenuBar';
 import BetPage from './BetPage';

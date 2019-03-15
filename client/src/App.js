@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SimpleStorageContract from "./contracts/SimpleStorage.json";
-import WeatherFactory from "./contracts/WeatherFactory.json";
+import BettingFactory from "./contracts/BettingFactory.json";
 import WeatherBet from "./contracts/WeatherBet.json";
 import getWeb3 from "./utils/getWeb3";
 
@@ -19,9 +19,9 @@ class App extends Component {
 
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = WeatherFactory.networks[networkId];
+      const deployedNetwork = BettingFactory.networks[networkId];
       const instance = new web3.eth.Contract(
-        WeatherFactory.abi,
+        BettingFactory.abi,
         deployedNetwork && deployedNetwork.address,
       );
 

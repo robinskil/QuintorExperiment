@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import WeatherFactory from "../contracts/WeatherFactory.json";
+import BettingFactory from "../contracts/BettingFactory.json";
 import WeatherBet from "../contracts/WeatherBet.json";
-import { createContract, getOwnedBets } from "../helpers/Contracts";
-import { getBetAmount, getParticipators, instantiateWeatherContract, joinBet } from "../helpers/BetContract";
+import RandomNumberBet from "../contracts/RandomNumberBet.json";
+import { createContract, getOwnedBets } from "../helpers/BettingFactory";
+import { getRandomNumber , getBetAmount, getParticipators, instantiateWeatherContract, joinBet, createRandomNumber } from "../helpers/BetContract";
 
 class ViewOwnBets extends Component{
     constructor(props){
@@ -24,9 +25,9 @@ class ViewOwnBets extends Component{
             const web3 = this.props.web3;
             const accounts = await web3.eth.getAccounts();
             const networkId = await web3.eth.net.getId();
-            const deployedNetwork = WeatherFactory.networks[networkId];
+            const deployedNetwork = BettingFactory.networks[networkId];
             const instance = new web3.eth.Contract(
-                WeatherFactory.abi,
+                BettingFactory.abi,
                 deployedNetwork && deployedNetwork.address,
             );
             this.setState({ accounts, factoryContract: instance });
@@ -77,6 +78,7 @@ class AllBets extends Component{
     componentDidMount = async () =>{
         const bets = await getOwnedBets(this.props.factoryContract , this.props.account);
         this.setState({allBets : bets , loading:false});
+        console.log("all bets amount:" + bets.length)
     }
 
     render(){
@@ -110,6 +112,7 @@ class BetInfo extends Component {
         super(props);
         this.state = {
             betAmount: null,
+            randomNumber: undefined,
             participators: null,
             contract: null
         }
@@ -118,10 +121,13 @@ class BetInfo extends Component {
     }
 
     async loadData() {
-        const instance = await instantiateWeatherContract(this.props.web3, WeatherBet, this.props.bet);
+        const instance = await instantiateWeatherContract(this.props.web3, RandomNumberBet, this.props.bet);
         const betAmount = await getBetAmount(instance);
         const participators = await getParticipators(instance);
-        this.setState({ contract: instance, betAmount: betAmount, participators: participators });
+        const value = await getRandomNumber(instance);
+        
+        console.log(value);
+        this.setState({ contract: instance, betAmount: betAmount, participators: participators , randomNumber:value});
     }
 
 
@@ -148,7 +154,10 @@ class BetInfo extends Component {
                             <div className="tab-pane fade show active" id={"nav-main" + this.props.bet} role="tabpanel" aria-labelledby="nav-home-tab">
                                 <h6 className="card-subtitle mb-2 text-muted" style={{ marginTop: "0px" }}>Contract Address: {this.props.bet}</h6>
                                 {this.state.betAmount != null ?
-                                    <p className="card-text">Amount to join bet: {this.state.betAmount} <img style={{ position: "relative", bottom: "2px", height: "15px", width: "15px" }} src="https://cdn4.iconfinder.com/data/icons/cryptocoins/227/ETH-512.png" /></p>
+                                    <div>
+                                        <p className="card-text">Amount to join bet: {this.state.betAmount} <img style={{ position: "relative", bottom: "2px", height: "15px", width: "15px" }} src="https://cdn4.iconfinder.com/data/icons/cryptocoins/227/ETH-512.png" /></p>
+                                        <p className="cart-text">Random number is: {this.state.randomNumber}</p>
+                                    </div>
                                  : null}
                             </div>
                             <div className="tab-pane fade" id={"nav-participants" + this.props.bet} role="tabpanel" aria-labelledby="nav-profile-tab">

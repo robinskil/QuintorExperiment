@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import WeatherFactory from "../contracts/WeatherFactory.json";
+import BettingFactory from "../contracts/BettingFactory.json";
 import WeatherBet from "../contracts/WeatherBet.json";
-import { createContract, getOwnedBets } from "../helpers/Contracts";
+import { createRandomNumberBet, getOwnedBets } from "../helpers/BettingFactory";
 import { getBetAmount, getParticipators, instantiateWeatherContract, joinBet } from "../helpers/BetContract";
 
 class BetPage extends Component {
@@ -24,9 +24,9 @@ class BetPage extends Component {
             const web3 = this.props.web3;
             const accounts = await web3.eth.getAccounts();
             const networkId = await web3.eth.net.getId();
-            const deployedNetwork = WeatherFactory.networks[networkId];
+            const deployedNetwork = BettingFactory.networks[networkId];
             const instance = new web3.eth.Contract(
-                WeatherFactory.abi,
+                BettingFactory.abi,
                 deployedNetwork && deployedNetwork.address,
             );
             this.setState({ accounts, factoryContract: instance });
@@ -81,6 +81,7 @@ class CreateContractForm extends Component {
             amountOfParticipators: null,
             friendsOnly: "false",
             openOnInit: "true",
+            betLength: undefined,
             closeOnTime: undefined,
         }
         this.buildContract = this.buildContract.bind(this);
@@ -88,6 +89,11 @@ class CreateContractForm extends Component {
         this.onChangeFriendsOnly = this.onChangeFriendsOnly.bind(this);
         this.onChangeOpenOnInit = this.onChangeOpenOnInit.bind(this);
         this.onChangeParticipators = this.onChangeParticipators.bind(this);
+        this.onChangeBetLength = this.onChangeBetLength.bind(this);
+    }
+
+    onChangeBetLength(event){
+        this.setState({betLength : event.target.value});
     }
 
     onChangeEther(event){
@@ -118,6 +124,13 @@ class CreateContractForm extends Component {
                         <input type="number" class="form-control" id="validationServer01" min={0} max={64} value={this.state.amountOfParticipators} onChange={this.onChangeParticipators} required />
                         <div class="invalid-feedback">
                             Please fill the max amount of participators (Maximum = 64).
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="validationServer01">Fill in how long the bet lasts for(in minutes)</label>
+                        <input type="number" class="form-control" id="validationServer01" min={0} value={this.state.betLength} onChange={this.onChangeBetLength} required />
+                        <div class="invalid-feedback">
+                            Please fill in the number of minutes u want the bet to last for.
                         </div>
                     </div>
                     <div class="form-group">
@@ -153,7 +166,9 @@ class CreateContractForm extends Component {
     buildContract = async (event) => {
         event.preventDefault();
         console.log(this.state);
-        const instance = await createContract(this.props.account, this.props.factoryContract, this.state.etherAmount, this.state.amountOfParticipators, (this.state.openOnInit === "true"), (this.state.friendsOnly === "true"));
+        const instance = await createRandomNumberBet(this.props.account, this.props.factoryContract, this.state.etherAmount,
+                                                     this.state.amountOfParticipators, (this.state.openOnInit === "true"), 
+                                                     (this.state.friendsOnly === "true") , this.state.betLength);
         this.setState({ contractAddress: instance });
         alert("succesfully created contract.");
         this.setState({
@@ -161,7 +176,7 @@ class CreateContractForm extends Component {
             amountOfParticipators: "",
             friendsOnly: false,
             openOnInit: true,
-            
+            betLength: undefined
         })
         document.getElementById("customControlValidation1").checked = false;
     }

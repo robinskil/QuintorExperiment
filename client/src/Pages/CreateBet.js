@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import WeatherFactory from "../contracts/WeatherFactory.json";
+import BettingFactory from "../contracts/BettingFactory.json";
 import WeatherBet from "../contracts/WeatherBet.json";
+import RandomBet from "../contracts/RandomNumberBet.json"
 import getWeb3 from "../utils/getWeb3";
-import { createContract, getOwnedBets } from "../helpers/Contracts";
+import { createRandomNumberBet, getOwnedBets } from "../helpers/BettingFactory";
 import { getBetAmount, getParticipators, instantiateWeatherContract, joinBet } from "../helpers/BetContract";
 import { MenuBar } from './Components/MenuBar';
 
@@ -25,10 +26,10 @@ class CreateBetPage extends Component {
             console.log("Logging accounts in!");
             // Get the contract instance.
             const networkId = await web3.eth.net.getId();
-            const deployedNetwork = WeatherFactory.networks[networkId];
+            const deployedNetwork = BettingFactory.networks[networkId];
             //creates an instance for the factoryContract
             const instance = new web3.eth.Contract(
-                WeatherFactory.abi,
+                BettingFactory.abi,
                 deployedNetwork && deployedNetwork.address,
             );
             // Set web3, accounts, and contract to the state, and then proceed with an
@@ -52,7 +53,7 @@ class CreateBetPage extends Component {
     }
 
     createNewContract = async () => {
-        const address = await createContract(this.state.accounts[0], this.state.factoryContract, this.state.etherAmount);
+        const address = await createRandomNumberBet(this.state.accounts[0], this.state.factoryContract, this.state.etherAmount);
         await this.setOwnedBets();
     }
 
