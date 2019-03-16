@@ -5,12 +5,12 @@ import {
     Link
 } from 'react-router-dom'
 //import WeatherFactory from "../contracts/WeatherFactory.json";
-import WeatherBet from "../contracts/WeatherBet.json";
+// import WeatherBet from "../contracts/WeatherBet.json";
 import getWeb3 from "../utils/getWeb3";
-import { createContract, getOwnedBets } from "../helpers/BettingFactory";
-import { getBetAmount, getParticipators, instantiateWeatherContract, joinBet } from "../helpers/BetContract";
+// import { createContract, getOwnedBets } from "../helpers/BettingFactory";
+// import { getBetAmount, getParticipators, instantiateWeatherContract, joinBet } from "../helpers/BetContract";
 import { MenuBar } from './Components/MenuBar';
-import BetPage from './BetPage';
+import CreateBet from './CreateBetPage';
 import ViewOwnBets from './ViewOwnBetsPage';
 
 
@@ -51,7 +51,7 @@ class Wrapper extends Component {
                     <Route exact path="/" component={IndexPage} />
                     <Route path="/about" component={null} />
                     <Route path="/topics" component={null} />
-                    <Route path="/CreateBet" component={()=>{return(<BetPage web3={this.state.web3}/>)}}/>
+                    <Route path="/CreateBet" component={()=>{return(<CreateBet web3={this.state.web3}/>)}}/>
                     <Route path="/ViewBets" component={()=>{return(<ViewOwnBets web3={this.state.web3}/>)}}/>
                 </div>
             </Router>

@@ -5,7 +5,7 @@ import "./IRandomNumberBet.sol";
 
 //Todo Add events for winners
 contract RandomNumberBet is Bet , IRandomNumberBet {
-    //Todo , make private/local
+    uint amountOfGuesses;
     uint256 private randomNumber;
     mapping(address => uint[]) guesses;
 
@@ -20,6 +20,8 @@ contract RandomNumberBet is Bet , IRandomNumberBet {
         bet.friendsOnly = _friendsOnly;
         bet.finished = false;
         bet.betLength = (1 minutes * _betLength);
+        betType = BetType.RandomNumberBet;
+        amountOfGuesses = 3;
         createRandomNumber();
     }
 
@@ -42,13 +44,6 @@ contract RandomNumberBet is Bet , IRandomNumberBet {
         oraclize_query(bet.betLength,"WolframAlpha", "random number between 1 and 10");
     }
 
-    //You cannot guess more than 3 times
-    function guess(uint guessValue) public participating {
-        require(guesses[msg.sender].length < 3 , "Cannot guess more than 3 times");
-        //require(userAlreadyJoined(msg.sender) == true);
-        guesses[msg.sender].push(guessValue);
-    }
-
     //Defines the winners
     function defineWinners() private returns (address[] memory){
         //loop through participants
@@ -66,6 +61,7 @@ contract RandomNumberBet is Bet , IRandomNumberBet {
     }
 
     //Divide the balance among winners
+    //TODO: If no winners, divide bet balance over all paricipants.
     function divideWinnings() private {
         uint part = address(this).balance / bet.winners.length;
         for(uint index = 0 ; index < bet.winners.length;index++){
@@ -75,6 +71,18 @@ contract RandomNumberBet is Bet , IRandomNumberBet {
         }
         //bet has finished
         bet.finished = true;
+    }
+
+    //You cannot guess more than X times
+    function guess(uint guessValue) public participating {
+        require(guesses[msg.sender].length < amountOfGuesses , "Cannot guess more than 3 times");
+        //require(userAlreadyJoined(msg.sender) == true);
+        guesses[msg.sender].push(guessValue);
+    }
+
+    //Returns number of guesses left for this bet.
+    function guessesLeft() public participating view returns(uint) {
+        return guesses[msg.sender].length;
     }
 
     //gets the winning number , TODO , hide it from public.

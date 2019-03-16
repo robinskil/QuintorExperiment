@@ -35,6 +35,14 @@ export async function getBetAmount(contract){
 }
 
 /**
+ * Gets the type of a bet , EX: RandomNumberBet
+ * @param {*} contract 
+ */
+export async function getBetType(contract){
+    return await contract.methods.betType().call();
+}
+
+/**
  * get the participators of an instantiated contract.
  * @param {*} contract 
  * @returns {[]} returns an array of partipators
@@ -67,8 +75,8 @@ export async function friendsOnly(contract){
 /**
  * checks if the bet has finished or not.
  * @param {*} contract 
- * @returns {true} if the bet has finished.
- * @returns {false} if the bet hasnt finished yet.
+ * @returns {true} true if the bet has finished.
+ * @returns {false} false if the bet hasnt finished yet.
  */
 export async function finished(contract){
     return await contract.methods.finished().call();

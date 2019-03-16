@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import BettingFactory from "../contracts/BettingFactory.json";
-import WeatherBet from "../contracts/WeatherBet.json";
+//import WeatherBet from "../contracts/WeatherBet.json";
 import RandomNumberBet from "../contracts/RandomNumberBet.json";
 import { createContract, getOwnedBets } from "../helpers/BettingFactory";
-import { getRandomNumber , getBetAmount, getParticipators, instantiateWeatherContract, joinBet, createRandomNumber } from "../helpers/BetContract";
+//import { getRandomNumber , getBetAmount, getParticipators, instantiateWeatherContract, joinBet, createRandomNumber } from "../helpers/BetContract";
+import { instantiateContract, getBetAmount, getParticipators, joinBet } from "../helpers/Bet.js";
+import {getRandomNumber} from "../helpers/RandomNumberBet.js"
+import '../css/createBetPage.css'
 
 class ViewOwnBets extends Component{
     constructor(props){
@@ -121,7 +124,7 @@ class BetInfo extends Component {
     }
 
     async loadData() {
-        const instance = await instantiateWeatherContract(this.props.web3, RandomNumberBet, this.props.bet);
+        const instance = await instantiateContract(this.props.web3, RandomNumberBet, this.props.bet);
         const betAmount = await getBetAmount(instance);
         const participators = await getParticipators(instance);
         const value = await getRandomNumber(instance);

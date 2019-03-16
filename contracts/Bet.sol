@@ -6,6 +6,11 @@ import "./oraclizeAPI.sol";
 //abstract contract that is used by any specilized bet.
 //Force winners to be filled in before make get winners request.
 contract Bet is usingOraclize {
+    //Defines which types of bets are available. (Ex. RandomNumberBet , WeatherBet)
+    enum BetType {
+        RandomNumberBet,
+        WeatherBet
+    }
     struct BetStruct {
         //time of creation of the bet
         uint creationTime;
@@ -13,7 +18,7 @@ contract Bet is usingOraclize {
         uint betLength;
         address owner;
         address[] participators;
-        address[]  winners;
+        address[] winners;
         uint betAmount;
         uint maxParticipators;  
         bool open;
@@ -21,6 +26,7 @@ contract Bet is usingOraclize {
         bool finished;
     }
     BetStruct bet;
+    BetType public betType;
 
     modifier onlyOwner {
         require(

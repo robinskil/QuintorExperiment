@@ -19,7 +19,7 @@ export async function createWeatherBet(account , factoryContract , betAmount , m
  * @param {*} betLength length of the bet in minutes. 
  */
 export async function createRandomNumberBet(account , factoryContract , betAmount , maxParticipators , open , friendsOnly , betLength) {
-    return await factoryContract.methods.createRandomBet(betAmount, maxParticipators , open , friendsOnly , betLength).send({ from: account });
+    return await factoryContract.methods.createRandomNumberBet(betAmount, maxParticipators , open , friendsOnly , betLength).send({ from: account });
 }
 
 /**

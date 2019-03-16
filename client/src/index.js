@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import CreateBet from './Pages/CreateBet'
+import CreateBet from './Pages/CreateBetPage'
 import Wrapper from './Pages/IndexPage';
 
 //ReactDOM.render(<App />, document.getElementById('root'));

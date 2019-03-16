@@ -14,7 +14,7 @@ contract BettingFactory {
     // }
 
     //Instantiates a new Random Number Bet
-    function createRandomBet(uint _value, uint _maxParticipators, bool _open, bool _friendsOnly, uint _betLength) public returns (address){
+    function createRandomNumberBet(uint _value, uint _maxParticipators, bool _open, bool _friendsOnly, uint _betLength) public returns (address) {
         address betAddress = address(new RandomNumberBet(msg.sender , _value , _maxParticipators , _open , _friendsOnly , _betLength));
         bets.push(betAddress);
         return betAddress;
@@ -25,7 +25,7 @@ contract BettingFactory {
         address[] memory allBets = new address[](bets.length);
         uint256 currentIndice = 0;
         for (uint256 index = 0; index < bets.length; index++) {
-            RandomNumberBet bet = RandomNumberBet(bets[index]);
+            Bet bet = Bet(bets[index]);
             if (bet.getOwner() == ownerAddress) {
                 allBets[currentIndice] = address(bet);
                 currentIndice++;  
