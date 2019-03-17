@@ -6,7 +6,6 @@ import { createContract, getOwnedBets } from "../helpers/BettingFactory";
 //import { getRandomNumber , getBetAmount, getParticipators, instantiateWeatherContract, joinBet, createRandomNumber } from "../helpers/BetContract";
 import { instantiateContract, getBetAmount, getParticipators, joinBet } from "../helpers/Bet.js";
 import {getRandomNumber} from "../helpers/RandomNumberBet.js"
-import '../css/createBetPage.css'
 
 class ViewOwnBets extends Component{
     constructor(props){
