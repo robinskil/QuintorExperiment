@@ -12,6 +12,7 @@ contract BettingFactory {
     //     bets.push(betAddress);
     //     return betAddress;
     // }
+    
 
     //Instantiates a new Random Number Bet
     function createRandomNumberBet(uint _value, uint _maxParticipators, bool _open, bool _friendsOnly, uint _betLength) public returns (address) {

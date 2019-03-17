@@ -27,7 +27,7 @@ export default class LoadingComponent extends Component {
                 await this.onFail(exception);
             }
         }
-        setTimeout(wait, 4000);
+        setTimeout(wait, 2000);
     }
 
     onFail = async (exception) => {
@@ -49,7 +49,7 @@ export default class LoadingComponent extends Component {
             <div className="popup fade-in-signing-in" onClick={this.props.event}>
                 <div className="popup_inner">
                     {!this.state.completed ? <LoadingSymbol /> : this.state.succes ?
-                        <SuccesLoading message={this.props.succesMessage} unmount={this.unmount} /> : <FailedLoading error={this.state.error} unmount={this.unmount} />}
+                        <SuccesLoading succesMessage={this.props.succesMessage} unmount={this.unmount} /> : <FailedLoading error={this.state.error} unmount={this.unmount} />}
                 </div>
             </div>
         )
@@ -83,7 +83,7 @@ class SuccesLoading extends Component {
                     <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" style={{ opacity: "1.0" }}>
                         <div class="toast-header">
                             <img src={ethereumGreenIcon} width={30} height={30} class="saturate" />
-                            <strong class="mr-auto text-succes">Succes</strong>
+                            <strong class="mr-auto text-succes">Succes!</strong>
                             <small>Just now</small>
                             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close" onClick={this.props.unmount}>
                                 <span aria-hidden="true">&times;</span>

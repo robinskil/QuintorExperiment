@@ -154,9 +154,9 @@ class CreateBetForm extends Component {
                                     </div>
                                     <div class="form-group">
                                         <label for="validationServer01">Fill in how long the bet lasts for(in minutes)</label>
-                                        <input type="number" class="form-control" id="validationServer01" min={5} value={this.state.betLength} onChange={this.onChangeBetLength} required />
+                                        <input type="number" class="form-control" id="validationServer01" min={1} value={this.state.betLength} onChange={this.onChangeBetLength} required />
                                         <div class="invalid-feedback">
-                                            Please fill in the number of minutes u want the bet to last for(Minimum of 5 minutes).
+                                            Please fill in the number of minutes u want the bet to last for(Minimum of 1 minutes).
                                 </div>
                                     </div>
                                     <div class="form-group">
@@ -213,7 +213,7 @@ class CreateBetForm extends Component {
             this.state.amountOfParticipators, (this.state.openOnInit === "true"),
             (this.state.friendsOnly === "true"), this.state.betLength)
         //alert("succesfully created contract.");
-        await this.resetContract();
+        await this.resetForm();
     }
 
     resetForm = async () => {

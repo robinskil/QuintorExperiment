@@ -118,5 +118,13 @@ export async function getCreationTime(contract){
  * @returns time in seconds left.
  */
 export async function getTimeLeft(contract){
-    return await contract.methods.timeLeft().call()
+    return await contract.methods.timeLeft().call();
+}
+
+/**
+ * Gets the owner of a bet.
+ * @param {*} contract 
+ */
+export async function getOwner(contract){
+    return await contract.methods.getOwner().call();
 }

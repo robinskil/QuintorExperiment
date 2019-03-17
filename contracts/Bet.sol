@@ -63,6 +63,10 @@ contract Bet is usingOraclize {
         return false;
     }
 
+    function checkJoined() public view returns(bool) {
+        return userAlreadyJoined(msg.sender);
+    }
+
     function isOpen() public view returns(bool) {
         return bet.open;
     }

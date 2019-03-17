@@ -12,6 +12,8 @@ import getWeb3 from "../utils/getWeb3";
 import { MenuBar } from './Components/MenuBar';
 import CreateBet from './CreateBetPage';
 import ViewOwnBets from './ViewOwnBetsPage';
+import BetPage from "./BetPage";
+import JoinBetPage from "./JoinBetPage";
 
 
 class Wrapper extends Component {
@@ -34,7 +36,7 @@ class Wrapper extends Component {
                     <h3 style={{textAlign:"center"}}>Loading web3 package... wait please.</h3>
                 </div>
                 <div className="col-12">
-                    <h6 className="text-muted   " style={{textAlign:"center"}}>Before it can load , please log in using Metamask.</h6>
+                    <h6 className="text-muted" style={{textAlign:"center"}}>Before it can load , please log in using Metamask.</h6>
                 </div>
                 <div>
                     <div className="spinner-border text-primary" role="status">
@@ -52,7 +54,9 @@ class Wrapper extends Component {
                     <Route path="/about" component={null} />
                     <Route path="/topics" component={null} />
                     <Route path="/CreateBet" component={()=>{return(<CreateBet web3={this.state.web3}/>)}}/>
+                    <Route path="/JoinBet" component={()=>{return(<JoinBetPage web3={this.state.web3}/>)}} />
                     <Route path="/ViewBets" component={()=>{return(<ViewOwnBets web3={this.state.web3}/>)}}/>
+                    <Route path="/Bet/:betAddress" render={(props)=>{return(<BetPage web3={this.state.web3} {...props}/>)}}/>
                 </div>
             </Router>
         )

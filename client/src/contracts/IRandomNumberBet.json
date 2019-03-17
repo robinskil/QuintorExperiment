@@ -35,14 +35,14 @@
     "absolutePath": "/C/Users/Robin/Documents/GitHub/QuintorExperiment/contracts/IRandomNumberBet.sol",
     "exportedSymbols": {
       "IRandomNumberBet": [
-        414
+        425
       ]
     },
-    "id": 415,
+    "id": 426,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 405,
+        "id": 416,
         "literals": [
           "solidity",
           "^",
@@ -58,9 +58,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 414,
+        "id": 425,
         "linearizedBaseContracts": [
-          414
+          425
         ],
         "name": "IRandomNumberBet",
         "nodeType": "ContractDefinition",
@@ -68,22 +68,22 @@
           {
             "body": null,
             "documentation": null,
-            "id": 410,
+            "id": 421,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "guess",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 408,
+              "id": 419,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 407,
+                  "id": 418,
                   "name": "guessValue",
                   "nodeType": "VariableDeclaration",
-                  "scope": 410,
+                  "scope": 421,
                   "src": "163:15:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -92,7 +92,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 406,
+                    "id": 417,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "163:4:2",
@@ -108,12 +108,12 @@
               "src": "162:17:2"
             },
             "returnParameters": {
-              "id": 409,
+              "id": 420,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "188:0:2"
             },
-            "scope": 414,
+            "scope": 425,
             "src": "148:41:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -122,32 +122,32 @@
           {
             "body": null,
             "documentation": null,
-            "id": 413,
+            "id": 424,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "guessesLeft",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 411,
+              "id": 422,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "215:2:2"
             },
             "returnParameters": {
-              "id": 412,
+              "id": 423,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "226:0:2"
             },
-            "scope": 414,
+            "scope": 425,
             "src": "195:32:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 415,
+        "scope": 426,
         "src": "114:116:2"
       }
     ],
@@ -157,14 +157,14 @@
     "absolutePath": "/C/Users/Robin/Documents/GitHub/QuintorExperiment/contracts/IRandomNumberBet.sol",
     "exportedSymbols": {
       "IRandomNumberBet": [
-        414
+        425
       ]
     },
-    "id": 415,
+    "id": 426,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 405,
+        "id": 416,
         "literals": [
           "solidity",
           "^",
@@ -180,9 +180,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 414,
+        "id": 425,
         "linearizedBaseContracts": [
-          414
+          425
         ],
         "name": "IRandomNumberBet",
         "nodeType": "ContractDefinition",
@@ -190,22 +190,22 @@
           {
             "body": null,
             "documentation": null,
-            "id": 410,
+            "id": 421,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "guess",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 408,
+              "id": 419,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 407,
+                  "id": 418,
                   "name": "guessValue",
                   "nodeType": "VariableDeclaration",
-                  "scope": 410,
+                  "scope": 421,
                   "src": "163:15:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -214,7 +214,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 406,
+                    "id": 417,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "163:4:2",
@@ -230,12 +230,12 @@
               "src": "162:17:2"
             },
             "returnParameters": {
-              "id": 409,
+              "id": 420,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "188:0:2"
             },
-            "scope": 414,
+            "scope": 425,
             "src": "148:41:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -244,32 +244,32 @@
           {
             "body": null,
             "documentation": null,
-            "id": 413,
+            "id": 424,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "guessesLeft",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 411,
+              "id": 422,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "215:2:2"
             },
             "returnParameters": {
-              "id": 412,
+              "id": 423,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "226:0:2"
             },
-            "scope": 414,
+            "scope": 425,
             "src": "195:32:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 415,
+        "scope": 426,
         "src": "114:116:2"
       }
     ],
@@ -281,7 +281,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.2",
-  "updatedAt": "2019-03-16T15:49:36.955Z",
+  "updatedAt": "2019-03-17T18:51:56.605Z",
   "devdoc": {
     "methods": {}
   },

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom'
 import BettingFactory from "../contracts/BettingFactory.json";
 //import WeatherBet from "../contracts/WeatherBet.json";
 import RandomNumberBet from "../contracts/RandomNumberBet.json";
@@ -174,7 +175,7 @@ class BetInfo extends Component {
                             </div>
                         </div>
                         <div style={{ marginTop: "15px" }}>
-                            <a href="#" className="card-link">Link to the bet</a>
+                            <Link to={"/Bet/"+this.props.bet} className="card-link">Link to the bet</Link>
                             <a href="#" className="card-link">Another link</a>
                         </div>
                     </div>
