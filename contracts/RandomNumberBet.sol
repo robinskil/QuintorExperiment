@@ -10,8 +10,8 @@ contract RandomNumberBet is Bet , IRandomNumberBet {
     uint256 private randomNumber;
     mapping(address => uint[]) guesses;
 
-    constructor(address _owner , uint _amount , uint _maxParticipators , bool _open , bool _friendsOnly , uint _betLength) public  {
-        OAR = OraclizeAddrResolverI(0x8443A77A530dF747e77B913B77c81A98508Da8EC);
+    constructor (address _owner , uint _amount , uint _maxParticipators , bool _open , bool _friendsOnly , uint _betLength) public  {
+        OAR = OraclizeAddrResolverI(0x6f485C8BF6fc43eA212E93BBF8ce046C7f1cb475);
         require(_betLength > 0 && _maxParticipators <= 64 && _maxParticipators > 0);
         bet.creationTime = now;
         bet.owner = _owner;
@@ -23,7 +23,8 @@ contract RandomNumberBet is Bet , IRandomNumberBet {
         bet.betLength = (1 minutes * _betLength);
         betType = BetType.RandomNumberBet;
         amountOfGuesses = 3;
-        getWinningNumber();
+
+        xs();
     }
 
     event LogRandomNumber(string price);
@@ -35,14 +36,16 @@ contract RandomNumberBet is Bet , IRandomNumberBet {
         //after the number has been decided , the winners will be decided.
         //TODO???
         //defineWinners();
-        emit LogRandomNumber(result);
+        //emit LogRandomNumber(result);
     }
 
-    //Creates a random number by the use of a real world api through the query method.
-    //TODO, Create mutex so it can only be done once
-    function getWinningNumber() private  {
+    function xs() public {
+        oraclize_query("WolframAlpha", "random number between 1 and 10");
+    }
+
+    function requestRandomNumber() private  {
         //Query for the future , betlength = time in seconds after creation of the bet.
-        oraclize_query(bet.betLength,"WolframAlpha", "random number between 1 and 10");
+        oraclize_query("WolframAlpha", "random number between 1 and 10");
     }
 
     //Defines the winners

@@ -111,3 +111,20 @@ export default class JoinBetPage extends Component {
         )
     }
 }
+
+
+//TODO: Create a component that display betting info
+
+class BetInfo extends Component{
+    constructor(props){
+        super(props);
+    }
+
+    render(){
+        return(
+            <div>
+                
+            </div>
+        )
+    }
+}
